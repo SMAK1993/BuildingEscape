@@ -2,7 +2,6 @@
 
 #include "Grabber.h"
 
-
 // Sets default values for this component's properties
 UGrabber::UGrabber()
 {
@@ -29,6 +28,36 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	// Get player viewpoint every tick
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		PlayerViewPointLocation, 
+		PlayerViewPointRotation
+	);
+
+	// TODO Log out to test
+	//UE_LOG(LogTemp, Warning, TEXT("Viewpoint Location: %s, Viewpoint Rotation: %s"), 
+	//	*PlayerViewPointLocation.ToString(), 
+	//	*PlayerViewPointRotation.ToString()
+	//);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+
+	// Draw a red trace in the world to visualise
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FColor(255, 0, 0),
+		false,
+		0.f,
+		0.f,
+		10.f
+	);
+
+	// Raycast out to reach distance
+
+	// See wwhat we hit
 }
 
