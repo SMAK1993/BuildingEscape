@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "Engine/TriggerVolume.h"
 #include "Engine/World.h"
+#include "Components/PrimitiveComponent.h"
 #include "OpenDoor.generated.h"
 
 
@@ -42,6 +43,8 @@ private:
 
 	float LastDoorOpenTime;
 
-	AActor* ActorThatOpens; // Pawn inherits from actor
 	AActor* Owner; // Owning door
+
+	// Return total mass in kg
+	float GetTotalMassOfActorsOnPlate();
 };
